@@ -1,18 +1,18 @@
 // cards array holds all cards
-let card = global.document.getElementsByClassName("card");
+let card = global.window.getElementsByClassName("card");
 let cards = [...card];
 
 // deck of all cards in game
-const deck = global.document.getElementById("card-deck");
+const deck = global.window.getElementById("card-deck");
 
 // declaring variable of matchedCards
-let matchedCard = global.document.getElementsByClassName("match");
+let matchedCard = global.window.getElementsByClassName("match");
 
 // close icon in modal
-let closeIcon = global.document.querySelector(".close");
+let closeIcon = global.window.querySelector(".close");
 
 // declare modal
-let modal = global.document.getElementById("popup1");
+let modal = global.window.getElementById("popup1");
 
 // array for opened cards
 let openedCards = [];
@@ -52,7 +52,7 @@ const displayCard = function() {
     this.classList.toggle("open");
     this.classList.toggle("show");
     this.classList.toggle("disabled");
-    console.log('line 55 displayCard')
+    // console.log('line 55 displayCard')
 };
 
 // add opened cards to OpenedCards list and check if cards are match or not

@@ -54,34 +54,36 @@ describe('memory game tests',function () {
 			}
 				let global= new Global() 
 			</script> 
-			<script src="./src/app.js"></script>
+			<script src="https://raw.githubusercontent.com/SweetBeard30/dom-testing-demo/master/src/app.js"></script>
 			</body></html>`, {
 				// enabling jsDom to run scripts and use external
 				// resource via i.e <link>, <script>, <img>, etc
 				runScripts: "dangerously",
 				resources: "usable",
-			})
-		global.document = dom.window.document;
+		})
+
+		global.view = dom.window;
+		global.window = dom.window.document;
 		game = require("../src/app")
 	})
 
 	it("demo", function(){
-		const list = global.document.getElementsByClassName('card')
-		// console.log(list.length)
-		// console.log(game.cards)
-
+		
 		const clickSimulator = (arg)=>{
-			let event = new MouseEvent('click', {
-				view: window,
+
+			let event = new global.view.MouseEvent('click', {
+				view: global.view,
 				bubbles: true,
 				cancelable: false
 			})
-			let element = global.document.getElementsByTagName('LI')[0];
+
+			let element = global.window.getElementsByTagName('LI')[0];
 			element.dispatchEvent(event);
-			let getClass = global.document.getElementsByClassName('show');
-			console.log(getClass)
+			let getClass = global.window.getElementsByClassName('show');
+			console.log(getClass.length)
 		};
-		// expect(global.document.getElementById('card-deck').length)
-		// .toEqual(16)
+		clickSimulator()
+		const list = global.window.getElementsByClassName('open')
+		console.log(list.length)
 	})
 })
