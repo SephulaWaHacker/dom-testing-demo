@@ -1,16 +1,26 @@
 describe('memory game tests',function () {
-	// const { playAgain, closeModal, congratulations, 
-		// enable, disable, unmatched, matched, displayCard, 
-		// startGame, shuffle, openedCards, cards} = require()
 	const jsdom = require('jsdom')
 	const {JSDOM} = jsdom;
 
-	// using jsDom's VirtualConsole
+	// using jsDom's VirtualConsole method
 	// and telling it to use the default nodejs console. 
 	const virtualConsole = new jsdom.VirtualConsole();
 	virtualConsole.sendTo(console);
 	
+	// this function simulates a click on one of the game tiles.
+	const clickSimulator = (arg)=>{
+		let event = new global.view.MouseEvent('click', {
+			view: global.view,
+			bubbles: true,
+			cancelable: false
+		})
+
+		let element = global.window.getElementsByTagName('LI')[arg];
+		element.dispatchEvent(event);
+	};
+
 	beforeEach(()=>{
+
 		dom = new JSDOM(`<!doctype html>
 			<html lang="en"><head>
 			<meta charset="utf-8"> 
@@ -59,31 +69,25 @@ describe('memory game tests',function () {
 				// enabling jsDom to run scripts and use external
 				// resource via i.e <link>, <script>, <img>, etc
 				runScripts: "dangerously",
-				resources: "usable",
-		})
+				resources: "usable"
+			}
+		)
 
 		global.view = dom.window;
 		global.window = dom.window.document;
 		game = require("../src/app")
 	})
 
-	it("demo", function(){
+	it("should be able to add addEventListener to all game tiles and ,ake them clickable", ()=>{
 		
-		const clickSimulator = (arg)=>{
+		clickSimulator(0) // specify which card index to click
+		expect(global.window.getElementsByClassName('open').length).toEqual(1)
+		
+		clickSimulator(5) //flip another card at index 5
+		expect(global.window.getElementsByClassName('open').length).toEqual(2)
+	})
 
-			let event = new global.view.MouseEvent('click', {
-				view: global.view,
-				bubbles: true,
-				cancelable: false
-			})
-
-			let element = global.window.getElementsByTagName('LI')[0];
-			element.dispatchEvent(event);
-			let getClass = global.window.getElementsByClassName('show');
-			console.log(getClass.length)
-		};
-		clickSimulator()
-		const list = global.window.getElementsByClassName('open')
-		console.log(list.length)
+	it("should dosomething", ()=>{
+		expect(typeof 1).toEqual('number')
 	})
 })
