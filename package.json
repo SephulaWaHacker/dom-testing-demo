@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "canvas": "^2.6.0",
-    "jsdom": "^15.1.1"
+    "jsdom": "^16.5.0"
   },
   "devDependencies": {},
   "scripts": {
